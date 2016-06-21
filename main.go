@@ -1,5 +1,8 @@
 package main
 
+import "github.com/huytd/go-play/engine"
+
 func main() {
-  println("Hello")
+  e := engine.Engine{}
+  e.Run(`print("Hello")`)
 }
