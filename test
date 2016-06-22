@@ -1,3 +1,0 @@
-printf "\e[33mTesting...\e[0m\n"
-go test ./...
-printf "\e[34mDone!\e[0m\n"
