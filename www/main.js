@@ -6,7 +6,8 @@
 
 	$("#code").on("keypress", function(e) {
 		var meta = e.metaKey || e.ctrlKey;
-		var enter = (e.keyCode === 13) || (e.which === 13);
+		var enterKey = (e.keyCode || e.which);
+		var enter = enterKey === 10 || enterKey === 13;
 		if (meta && enter) {
 			$("#output").html("");
 			$("#output").append("<p class='ide'>Executing...</p>");
