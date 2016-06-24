@@ -8,13 +8,33 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+  "strings"
 )
 
 type Engine struct {
 }
 
 func (e *Engine) Gen(input string) string {
-	return "package main\n\nfunc main() {\n" + input + "\n}"
+  // Prepare code types
+  imports     := []string{}
+  // functions   := []string{}
+  statements  := []string{}
+
+  // Parsing 
+  lines := strings.Split(input, "\n")
+  for i:= 0; i < len(lines); i++ {
+    if strings.HasPrefix(lines[i], "import ") {
+      imports = append(imports, lines[i])
+    } else {
+      statements = append(statements, lines[i])
+    }
+  }
+
+  // Generate code
+  generated   := "package main\n"
+  generated   = generated + strings.Join(imports, "\n") + "\n"
+  generated   = generated + "func main() {\n" + strings.Join(statements, "\n") + "\n}"
+  return generated
 }
 
 func (e *Engine) Save(code string) (string, string) {
