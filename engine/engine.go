@@ -1,6 +1,8 @@
 package engine
 
 import (
+	"bytes"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -31,18 +33,34 @@ func (e *Engine) CleanUp(dir string) {
 	os.RemoveAll(dir)
 }
 
-func (e *Engine) Run(code string) {
+func (e *Engine) Run(code string) string {
+	originalStdOut := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+	outChannel := make(chan string)
+
+	go func() {
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+		outChannel <- buf.String()
+	}()
+
 	path, _ := e.Save(e.Gen(code))
 	defer e.CleanUp(path)
-
-	print("Executing... \n")
 
 	os.Chdir(path)
 
 	cmdName := "go"
 	cmdArgs := []string{"run", "main.go"}
 	cmd := exec.Command(cmdName, cmdArgs...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	cmd.Stdout = w
+	cmd.Stderr = w
+
 	cmd.Run()
+
+	w.Close()
+	os.Stdout = originalStdOut
+	output := <-outChannel
+
+	return output
 }
