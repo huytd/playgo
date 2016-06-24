@@ -18,7 +18,7 @@
 					code: editor.getValue()
 				},
 				success: function(data) {
-					$("#output").append("<p class='msg'>" + data.replace("\n", "<br/>")  + "</p>");			
+					$("#output").append("<p class='msg'>" + data.replace(/\n/g, "<br/>")  + "</p>");			
 				}
 			});
 		}
