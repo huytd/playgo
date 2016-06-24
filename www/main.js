@@ -18,7 +18,12 @@
 					code: editor.getValue()
 				},
 				success: function(data) {
-					$("#output").append("<p class='msg'>" + data.replace(/\n/g, "<br/>")  + "</p>");			
+          var output = data.replace(/\n/g, '<br/>');
+          var className = 'msg';
+          if (output.match(/main\.go:/i) != null) {
+            className = 'msg-err';
+          }
+					$("#output").html('<p class="' + className + '">' + output + '</p>');			
 				}
 			});
 		}

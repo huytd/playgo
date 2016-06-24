@@ -60,5 +60,7 @@ html, body {
         color: #555; }
       .layout .bottom .right .msg {
         color: #FFC107; }
+      .layout .bottom .right .msg-err {
+        color: #F44336; }
 
 /*# sourceMappingURL=style.css.map */
