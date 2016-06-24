@@ -1,0 +1,9 @@
+{
+	"ImportPath": "github.com/huytd/go-play",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
+	"Packages": [
+		"./..."
+	],
+	"Deps": []
+}
