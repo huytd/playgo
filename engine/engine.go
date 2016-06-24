@@ -33,7 +33,7 @@ func (e *Engine) CleanUp(dir string) {
 
 func (e *Engine) Run(code string) {
 	path, _ := e.Save(e.Gen(code))
-	//defer e.CleanUp(path)
+	defer e.CleanUp(path)
 
 	print("Executing... \n")
 
