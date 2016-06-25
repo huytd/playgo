@@ -15,12 +15,9 @@ type Engine struct {
 }
 
 func (e *Engine) Gen(input string) string {
-	// Prepare code types
 	imports := []string{}
-	// functions   := []string{}
 	statements := []string{}
 
-	// Parsing
 	lines := strings.Split(input, "\n")
 	for i := 0; i < len(lines); i++ {
 		if strings.HasPrefix(lines[i], "import ") {
@@ -30,7 +27,6 @@ func (e *Engine) Gen(input string) string {
 		}
 	}
 
-	// Generate code
 	generated := "package main\n"
 	generated = generated + strings.Join(imports, "\n") + "\n"
 	generated = generated + "func main() {\n" + strings.Join(statements, "\n") + "\n}"
