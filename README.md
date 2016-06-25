@@ -25,6 +25,13 @@ make install
 
 You will be prompted to enter password, in order to install `playgo` to `/usr/local/bin`.
 
+Or run in Docker container:
+```
+docker build -t go-play .
+# may be: docker push ...
+docker run -d -p 3000:3000 go-play
+```
+
 ## What is this?
 
 This is the simple version of Go Playground. It run locally with no container needed.
