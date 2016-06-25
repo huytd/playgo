@@ -1,19 +1,19 @@
-# Playgo - Yet another Golang playground
+# Playgo - a real playful Golang playground
 
 ![](screenshot.png)
 
-## Why this?
+## Why use this?
 
 Because:
 
-- The official Playground's UI is sucks
+- The official Playground's UI sucks
 - This one run locally with no need of container/docker
 - Smaller code-base, easier to customize
 - Use it the way you want (cli mode and web mode)
 - Forget the code format, just type the code anyway you want
 - ... (add more awesome stuff here) ...
 
-## Installation
+## How to install?
 
 Stand-alone installer will be supported later. For now, you have to build it yourself.
 
@@ -68,9 +68,9 @@ PORT=8080 playgo -mode=web
 ```
 
 ## License
-MIT License
+This project is licensed under the terms of the **MIT** license.
 
-## Contributing
+## For Developers
 
 It would be nice if you want to contribute to this project. I really need your help, there are a lot of things to do.
 
@@ -80,9 +80,10 @@ Feel free to create a pull request or make an issue to report bugs/request new f
 
 ## To Do:
 
-- Create an installer
-- Support `import`
+- Parse the code with `AST`
+- Fully Support `import`
 - Support `func`
-- Support `go fmt`
+- Support `channel` (real problem is: streaming output)
+- Execute code in containers or isolated environment for more security?
 - Create a command line code editor / or a VIM plugin?
 - Autocomplete for web IDE
