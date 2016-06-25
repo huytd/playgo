@@ -7,7 +7,7 @@
 Because:
 
 - Can import **any** package
-- ~The official Playground's UI sucks~ :trollface:
+- ~~The official Playground's UI sucks~~ :trollface:
 - This one run locally with no need of container/docker
 - Smaller code-base, easier to customize
 - Use it the way you want (cli mode and web mode)
