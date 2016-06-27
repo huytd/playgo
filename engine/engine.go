@@ -18,12 +18,11 @@ func (e *Engine) Gen(input string) string {
 	imports := []string{}
 	statements := []string{}
 
-	lines := strings.Split(input, "\n")
-	for i := 0; i < len(lines); i++ {
-		if strings.HasPrefix(lines[i], "import ") {
-			imports = append(imports, lines[i])
+	for _, line := range strings.Split(input, "\n") {
+		if strings.HasPrefix(line, "import ") {
+			imports = append(imports, line)
 		} else {
-			statements = append(statements, lines[i])
+			statements = append(statements, line)
 		}
 	}
 
