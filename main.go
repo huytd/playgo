@@ -21,9 +21,9 @@ func main() {
 		if err != nil {
 			println("No code to run!")
 		} else {
-			e := engine.Engine{}
 			code := string(bytes)
 			if code != "" {
+				e := engine.Engine{}
 				output := e.Run(code)
 				println(output)
 			} else {
