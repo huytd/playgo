@@ -1,12 +1,14 @@
 package web
 
 import (
-	"github.com/huytd/go-play/engine"
 	"io"
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"runtime"
+
+	"github.com/huytd/go-play/engine"
 )
 
 func runCode(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +26,7 @@ func Start() {
 	println("Web IDE started at http://localhost", port)
 
 	_, filename, _, _ := runtime.Caller(1)
-	fs := http.FileServer(http.Dir(path.Join(path.Dir(filename), "www")))
+	fs := http.FileServer(http.Dir(path.Join(filepath.Dir(filename), "www")))
 	http.Handle("/", fs)
 	http.HandleFunc("/api/run", runCode)
 	http.ListenAndServe(port, nil)
