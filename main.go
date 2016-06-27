@@ -2,37 +2,40 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+
 	"github.com/huytd/go-play/engine"
 	"github.com/huytd/go-play/web"
-	"io/ioutil"
-	"os"
 )
 
 var (
-	modeFlag = flag.String("mode", "cli", "running mode of the playground")
+	mode = flag.String("mode", "cli", "running mode of the playground (cli or web)")
 )
 
 func main() {
 	flag.Parse()
-
-	mode := *modeFlag
-	if mode == "cli" {
+	switch *mode {
+	case "web":
+		web.Start()
+	case "cli":
 		bytes, err := ioutil.ReadAll(os.Stdin)
 		if err != nil {
-			println("No code to run!")
-		} else {
-			code := string(bytes)
-			if code != "" {
-				e := engine.Engine{}
-				output, _ := e.Run(code)
-				println(output)
-			} else {
-				println("No code to run!")
-			}
+			log.Fatalf("Can't read standard input: %v", err)
 		}
-	} else if mode == "web" {
-		web.Start()
-	} else {
-		println("Oops! There are only 2 modes supported: cli and web")
+		code := string(bytes)
+		if code == "" {
+			log.Fatal("No code to run!")
+		}
+		e := engine.Engine{}
+		output, err := e.Run(code)
+		if err != nil {
+			log.Fatalf("Error executing code: %v", err)
+		}
+		fmt.Print(output)
+	default:
+		log.Fatal("Oops! There are only 2 modes supported: cli and web")
 	}
 }
