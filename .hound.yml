@@ -1,2 +1,4 @@
 go:
   enabled: true
+javascript:
+  enabled: true
