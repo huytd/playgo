@@ -12,7 +12,7 @@
 	}
 	editor.setValue(savedCode, 1);
 
-	$("#code").on("keypress", function(e) {
+	$("#code").on("keydown", function(e) {
 		var meta = e.metaKey || e.ctrlKey;
 		var enterKey = (e.keyCode || e.which);
 		var enter = enterKey === 10 || enterKey === 13;
