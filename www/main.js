@@ -4,7 +4,7 @@
 	editor.session.setMode("ace/mode/golang");
 	editor.focus();
 
-	var localStorage = window.localStorage || { setItem: function() { }, getItem: function() { return "" } };
+	var localStorage = window.localStorage || { setItem: function() { }, getItem: function() { return ""; } };
 	
 	var savedCode = localStorage.getItem("code") || "";
 	if (savedCode === "") {
@@ -28,12 +28,17 @@
 				},
 				success: function(data) {
 					var output = data.replace(/\n/g, '<br/>');
-					var className = 'msg';
-					if (output.match(/main\.go:/i) != null) {
-						className = 'msg-err';
-					}
-					$("#output").html('<p class="' + className + '">' + output + '</p>');			
+					$("#output").html('<p class="msg">' + output + '</p>');
 					localStorage.setItem("code", editor.getValue());
+				},
+				error: function(xhr, status, text) {
+					var response = xhr.responseText;
+					if (response) {
+						$("#output").html('<p class="msg-err">' + response + '</p>');			
+						localStorage.setItem("code", editor.getValue());
+					} else {
+						$("#output").html('<p class="msg-err">Looks like the server is not reachable.</p>');			
+					}
 				}
 			});
 		}

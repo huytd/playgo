@@ -13,7 +13,13 @@ import (
 
 func runCode(w http.ResponseWriter, r *http.Request) {
 	e := engine.Engine{}
-	output := e.Run(r.FormValue("code"))
+	output, err := e.Run(r.FormValue("code"))
+
+	if err != nil {
+		http.Error(w, output, 400)
+		return
+	}
+
 	io.WriteString(w, string(output))
 }
 

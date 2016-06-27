@@ -48,7 +48,7 @@ func (e *Engine) CleanUp(dir string) {
 	os.RemoveAll(dir)
 }
 
-func (e *Engine) Run(code string) string {
+func (e *Engine) Run(code string) (string, error) {
 	originalStdOut := os.Stdout
 	r, w, _ := os.Pipe()
 	os.Stdout = w
@@ -71,11 +71,11 @@ func (e *Engine) Run(code string) string {
 	cmd.Stdout = w
 	cmd.Stderr = w
 
-	cmd.Run()
+	err := cmd.Run()
 
 	w.Close()
 	os.Stdout = originalStdOut
 	output := <-outChannel
 
-	return output
+	return output, err
 }
