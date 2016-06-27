@@ -1,5 +1,7 @@
 # Playgo - a real playful Golang playground
 
+[![Build Status](https://travis-ci.org/huytd/go-play.svg?branch=master)](https://travis-ci.org/huytd/go-play)
+
 ![](screenshot.png)
 
 ## Why use this?
