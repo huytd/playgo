@@ -17,6 +17,7 @@
 		var enterKey = (e.keyCode || e.which);
 		var enter = enterKey === 10 || enterKey === 13;
 		if (meta && enter) {
+			e.preventDefault();
 			$("#output").html("");
 			$("#output").append("<p class='ide'>Executing...</p>");
 			$.ajax({
