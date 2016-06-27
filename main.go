@@ -24,7 +24,7 @@ func main() {
 			code := string(bytes)
 			if code != "" {
 				e := engine.Engine{}
-				output := e.Run(code)
+				output, _ := e.Run(code)
 				println(output)
 			} else {
 				println("No code to run!")
