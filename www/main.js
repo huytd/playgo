@@ -34,7 +34,7 @@
 				error: function(xhr, status, text) {
 					var response = xhr.responseText;
 					if (response) {
-						$("#output").html('<p class="msg-err">' + response + '</p>');			
+						$("#output").html('<p class="msg-err">' + response.replace(/\n/g, '<br/>') + '</p>');			
 						localStorage.setItem("code", editor.getValue());
 					} else {
 						$("#output").html('<p class="msg-err">Looks like the server is not reachable.</p>');			
