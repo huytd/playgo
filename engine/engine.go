@@ -23,21 +23,21 @@ func (e *Engine) Gen(input string) string {
 	if m, _ := regexp.MatchString("^\\s*package\\s+main\\s*", input); m {
 		// No preprocessing required
 		return input
-	} else {
-		// Append package and all import
-		for _, line := range strings.Split(input, "\n") {
-			if strings.HasPrefix(line, "import ") {
-				imports = append(imports, line)
-			} else {
-				statements = append(statements, line)
-			}
-		}
-
-		generated := "package main\n"
-		generated = generated + strings.Join(imports, "\n") + "\n"
-		generated = generated + "func main() {\n" + strings.Join(statements, "\n") + "\n}"
-		return generated
 	}
+
+	// Append package and all import
+	for _, line := range strings.Split(input, "\n") {
+		if strings.HasPrefix(line, "import ") {
+			imports = append(imports, line)
+		} else {
+			statements = append(statements, line)
+		}
+	}
+
+	generated := "package main\n"
+	generated = generated + strings.Join(imports, "\n") + "\n"
+	generated = generated + "func main() {\n" + strings.Join(statements, "\n") + "\n}"
+	return generated
 
 }
 
