@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -18,6 +19,13 @@ func (e *Engine) Gen(input string) string {
 	imports := []string{}
 	statements := []string{}
 
+	// Check code starts with "package main"
+	if m, _ := regexp.MatchString("^\\s*package\\s+main\\s*", input); m {
+		// No preprocessing required
+		return input
+	}
+
+	// Append package and all import
 	for _, line := range strings.Split(input, "\n") {
 		if strings.HasPrefix(line, "import ") {
 			imports = append(imports, line)
@@ -30,6 +38,7 @@ func (e *Engine) Gen(input string) string {
 	generated = generated + strings.Join(imports, "\n") + "\n"
 	generated = generated + "func main() {\n" + strings.Join(statements, "\n") + "\n}"
 	return generated
+
 }
 
 func (e *Engine) Save(code string) (string, string) {
