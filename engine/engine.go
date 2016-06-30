@@ -15,6 +15,45 @@ import (
 type Engine struct {
 }
 
+func (e *Engine) Capture(fn func(*os.File, string) error, params string) (string, error) {
+	originalStdOut := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+	outChannel := make(chan string)
+
+	go func() {
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+		outChannel <- buf.String()
+	}()
+
+	err := fn(w, params)
+
+	w.Close()
+	os.Stdout = originalStdOut
+	output := <-outChannel
+
+	return output, err
+}
+
+func (e *Engine) Format(input string) (string, error) {
+	out, err := e.Capture(func(w *os.File, code string) error {
+		path, _ := e.Save(e.Gen(code))
+		defer e.CleanUp(path)
+
+		os.Chdir(path)
+
+		cmdName := "gofmt"
+		cmdArgs := []string{"main.go"}
+		cmd := exec.Command(cmdName, cmdArgs...)
+		cmd.Stdout = w
+		cmd.Stderr = w
+
+		return cmd.Run()
+	}, input)
+	return out, err
+}
+
 func (e *Engine) Gen(input string) string {
 	imports := []string{}
 	statements := []string{}
@@ -57,34 +96,20 @@ func (e *Engine) CleanUp(dir string) {
 	os.RemoveAll(dir)
 }
 
-func (e *Engine) Run(code string) (string, error) {
-	originalStdOut := os.Stdout
-	r, w, _ := os.Pipe()
-	os.Stdout = w
-	outChannel := make(chan string)
+func (e *Engine) Run(input string) (string, error) {
+	out, err := e.Capture(func(w *os.File, code string) error {
+		path, _ := e.Save(e.Gen(code))
+		defer e.CleanUp(path)
 
-	go func() {
-		var buf bytes.Buffer
-		io.Copy(&buf, r)
-		outChannel <- buf.String()
-	}()
+		os.Chdir(path)
 
-	path, _ := e.Save(e.Gen(code))
-	defer e.CleanUp(path)
+		cmdName := "go"
+		cmdArgs := []string{"run", "main.go"}
+		cmd := exec.Command(cmdName, cmdArgs...)
+		cmd.Stdout = w
+		cmd.Stderr = w
 
-	os.Chdir(path)
-
-	cmdName := "go"
-	cmdArgs := []string{"run", "main.go"}
-	cmd := exec.Command(cmdName, cmdArgs...)
-	cmd.Stdout = w
-	cmd.Stderr = w
-
-	err := cmd.Run()
-
-	w.Close()
-	os.Stdout = originalStdOut
-	output := <-outChannel
-
-	return output, err
+		return cmd.Run()
+	}, input)
+	return out, err
 }
