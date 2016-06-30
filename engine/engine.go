@@ -15,6 +15,7 @@ import (
 type Engine struct {
 }
 
+// Capture execute an anonymous function and capture the os.Stdout
 func (e *Engine) Capture(fn func(*os.File, string) error, params string) (string, error) {
 	originalStdOut := os.Stdout
 	r, w, _ := os.Pipe()
@@ -36,6 +37,7 @@ func (e *Engine) Capture(fn func(*os.File, string) error, params string) (string
 	return output, err
 }
 
+// Format run gofmt to format the code
 func (e *Engine) Format(input string) (string, error) {
 	out, err := e.Capture(func(w *os.File, code string) error {
 		path, _ := e.Save(e.Gen(code))
@@ -54,6 +56,7 @@ func (e *Engine) Format(input string) (string, error) {
 	return out, err
 }
 
+// Gen is a function to preprocess the code before execute it
 func (e *Engine) Gen(input string) string {
 	imports := []string{}
 	statements := []string{}
@@ -80,6 +83,7 @@ func (e *Engine) Gen(input string) string {
 
 }
 
+// Save function write the input code to a temporary folder for processing
 func (e *Engine) Save(code string) (string, string) {
 	dir, err := ioutil.TempDir("", "go-play-engine-temp")
 	if err != nil {
@@ -92,10 +96,12 @@ func (e *Engine) Save(code string) (string, string) {
 	return dir, tmpfn
 }
 
+// CleanUp will delete the temporary folder after executing
 func (e *Engine) CleanUp(dir string) {
 	os.RemoveAll(dir)
 }
 
+// Run function execute the code and return the output
 func (e *Engine) Run(input string) (string, error) {
 	out, err := e.Capture(func(w *os.File, code string) error {
 		path, _ := e.Save(e.Gen(code))
