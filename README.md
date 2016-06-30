@@ -86,10 +86,10 @@ Feel free to create a pull request or make an issue to report bugs/request new f
 
 ## To Do:
 
-- Parse the code with `AST`
-- Fully Support `import`
-- Support `func`
-- Support `channel` (real problem is: streaming output)
-- Execute code in containers or isolated environment for more security?
-- Create a command line code editor / or a VIM plugin?
-- Autocomplete for web IDE
+[x] Support `gofmt` - Recommend to use it only in full code mode
+[ ] Fully Support `import` - Currently available in full code mode
+[ ] Support `func` - Currently available in full code mode
+[ ] Support `channel` (real problem is: streaming output)
+[ ] Execute code in containers or isolated environment for more security?
+[ ] Create a command line code editor / or a VIM plugin?
+[ ] Autocomplete for web IDE
