@@ -18,15 +18,11 @@ Because:
 
 ## How to install?
 
-Stand-alone installer will be supported later. For now, you have to build it yourself.
-
-Get the source code, and run:
-
 ```
-make install
+go get -u github.com/huytd/go-play
 ```
 
-You will be prompted to enter password, in order to install `playgo` to `/usr/local/bin`.
+That's all! (Given that you have a working `GOPATH` configured)
 
 Or run in Docker container:
 ```
