@@ -14,9 +14,36 @@
 
 	$('#code').on('keydown', function(e) {
 		var meta = e.metaKey || e.ctrlKey;
-		var enterKey = (e.keyCode || e.which);
-		var enter = enterKey === 10 || enterKey === 13;
-		if (meta && enter) {
+		var keyCode = (e.keyCode || e.which);
+		var enter = keyCode === 10 || keyCode === 13;
+		var format = keyCode === 32;
+    
+    if (meta && format) {
+      e.preventDefault();
+      $('#output').html('<p class="ide">Formatting...</p>');
+      $.ajax({
+        url: '/api/format',
+        method: 'POST',
+        data: {
+          code: editor.getValue()
+        },
+        success: function(data) {
+          editor.setValue(data, 1);
+          $('#output').html('');
+        },
+        error: function(xhr, status, text) {
+        	var response = xhr.responseText.replace(/\n/g, '<br/>');
+					if (response) {
+						$('#output').html('<p class="msg-err">' + response + '</p>');			
+						localStorage.setItem('code', editor.getValue());
+					} else {
+						$('#output').html('<p class="msg-err">Looks like the server is not reachable.</p>');			
+					}
+        }
+      });
+    }
+    
+    if (meta && enter) {
 			e.preventDefault();
 			$('#output').html('');
 			$('#output').append('<p class="ide">Executing...</p>');
