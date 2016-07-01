@@ -25,10 +25,11 @@ go get -u github.com/huytd/go-play
 That's all! (Given that you have a working `GOPATH` configured)
 
 Or run in Docker container:
+
 ```
 docker build -t go-play .
 # may be: docker push ...
-docker run -d -p 3000:3000 go-play
+docker run -d -p 3000:3000 go-play -mode web
 ```
 
 ## What is this?
