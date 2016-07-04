@@ -1,6 +1,6 @@
-# Playgo - a real playful Golang playground
+# playgo - a real playful Golang playground
 
-[![Build Status](https://travis-ci.org/huytd/go-play.svg?branch=master)](https://travis-ci.org/huytd/go-play)
+[![Build Status](https://travis-ci.org/huytd/playgo.svg?branch=master)](https://travis-ci.org/huytd/playgo)
 
 ![](screenshot.png)
 
@@ -19,16 +19,16 @@ Because:
 ## How to install?
 
 ```
-go get -u github.com/huytd/go-play
+go get -u github.com/huytd/playgo
 ```
 
 That's all! (Given that you have a working `GOPATH` configured)
 
 Or run in Docker container:
 ```
-docker build -t go-play .
+docker build -t playgo .
 # may be: docker push ...
-docker run -d -p 3000:3000 go-play
+docker run -d -p 3000:3000 playgo
 ```
 
 ## What is this?
@@ -70,7 +70,7 @@ The web IDE will be started at [http://localhost:3000](http://localhost:3000) by
 You can change the port by:
 
 ```
-PLAYGO_PORT=8080 playgo -mode=web
+GO_PLAY_PORT=8080 playgo -mode=web
 ```
 
 ## License

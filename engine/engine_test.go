@@ -1,7 +1,7 @@
 package engine_test
 
 import (
-	"github.com/huytd/go-play/engine"
+	"github.com/huytd/playgo/engine"
 	"testing"
 )
 
