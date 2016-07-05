@@ -70,7 +70,7 @@ The web IDE will be started at [http://localhost:3000](http://localhost:3000) by
 You can change the port by:
 
 ```
-GO_PLAY_PORT=8080 playgo -mode=web
+PLAYGO_PORT=8080 playgo -mode=web
 ```
 
 ## License
