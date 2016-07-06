@@ -1,8 +1,9 @@
 package engine_test
 
 import (
-	"github.com/huytd/go-play/engine"
 	"testing"
+
+	"github.com/huytd/go-play/engine"
 )
 
 func TestEngineCodeGeneratorForSingleLine(t *testing.T) {
@@ -28,12 +29,28 @@ func TestEngineCodeGeneratorForMultipleLines(t *testing.T) {
 }
 
 func TestEngineCodeGeneratorWithImport(t *testing.T) {
-	code := "import \"strconv\"\n\ns := \"5\"\nn, _ := strconv.Atoi(s)\nprint(n)"
-	expect := "package main\n\nimport \"strconv\"\n\nfunc main() {\ns := \"5\"\nn, _ := strconv.Atoi(s)\nprint(n)\n}"
+	//
+	code := `import "strconv"
+
+s := "5"
+n, _ := strconv.Atoi(s)
+print(n)`
+
+	//
+	expect := `package main
+import "strconv"
+func main() {
+
+s := "5"
+n, _ := strconv.Atoi(s)
+print(n)
+}`
 
 	e := engine.Engine{}
 	output := e.Gen(code)
 	if output != expect {
+		t.Logf("Expected:\n%s", expect)
+		t.Logf("Got:\n%s", output)
 		t.Fail()
 	}
 }
