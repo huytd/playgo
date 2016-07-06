@@ -107,11 +107,10 @@ func (e *Engine) Run(input string) (string, error) {
 		path, _ := e.Save(e.Gen(code))
 		defer e.CleanUp(path)
 
-		os.Chdir(path)
-
 		cmdName := "go"
 		cmdArgs := []string{"run", "main.go"}
 		cmd := exec.Command(cmdName, cmdArgs...)
+		cmd.Dir = path
 		cmd.Stdout = w
 		cmd.Stderr = w
 
