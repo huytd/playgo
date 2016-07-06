@@ -16,11 +16,22 @@ var (
 )
 
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		flag.PrintDefaults()
+		fmt.Printf("\ncli mode usage,\n  echo 'print(\"Hello, do some math, 1 + 1 = \", 1 + 1)' | %s \n    or\n  cat something.txt | %s\n", os.Args[0], os.Args[0])
+	}
 	flag.Parse()
 	switch *mode {
 	case "web":
 		web.Start()
 	case "cli":
+		stat, _ := os.Stdin.Stat()
+		if (stat.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
+			fmt.Println("Incorrect Usage\n")
+			flag.Usage()
+			os.Exit(1)
+		}
 		bytes, err := ioutil.ReadAll(os.Stdin)
 		if err != nil {
 			log.Fatalf("Can't read standard input: %v", err)
