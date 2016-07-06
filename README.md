@@ -19,10 +19,10 @@ Because:
 ## How to install?
 
 ```
-go get -u github.com/huytd/go-play
+go get -u -v github.com/huytd/go-play
 ```
 
-That's all! (Given that you have a working `GOPATH` configured)
+That's all! (Given that you have a `GOPATH` configured, and `$GOPATH/bin` in your `PATH`)
 
 Or run in Docker container:
 ```
