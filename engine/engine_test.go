@@ -3,7 +3,7 @@ package engine_test
 import (
 	"testing"
 
-	"github.com/huytd/go-play/engine"
+	"github.com/huytd/playgo/engine"
 )
 
 func TestEngineCodeGeneratorForSingleLine(t *testing.T) {

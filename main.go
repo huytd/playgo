@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/huytd/go-play/engine"
-	"github.com/huytd/go-play/web"
+	"github.com/huytd/playgo/engine"
+	"github.com/huytd/playgo/web"
 )
 
 var (
