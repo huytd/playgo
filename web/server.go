@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/huytd/go-play/engine"
+	"github.com/huytd/playgo/engine"
 )
 
 func runCode(w http.ResponseWriter, r *http.Request) {

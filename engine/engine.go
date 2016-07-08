@@ -85,7 +85,7 @@ func (e *Engine) Gen(input string) string {
 
 // Save function write the input code to a temporary folder for processing
 func (e *Engine) Save(code string) (string, string) {
-	dir, err := ioutil.TempDir("", "go-play-engine-temp")
+	dir, err := ioutil.TempDir("", "playgo-engine-temp")
 	if err != nil {
 		log.Fatal(err)
 	}
